@@ -16,6 +16,9 @@
 #include <map>
 #include <set>
 
+// std::pair
+#include <utility>
+
 
 /* own container */
 #include "stack.hpp"
@@ -71,7 +74,6 @@ int	main()
 	s3 = s2;
 
 	std::cout << s3 << std::endl;
-
 	std::stack<int>		s4(std::stack<int>::reference cntr);
 
 	PRINT("");
@@ -89,6 +91,10 @@ int	main()
 	ft::stack<int>		f3;
 	f3 = f2;
 	std::cout << f3 << std::endl;
-
 	ft::stack<int>		f4(std::deque<int>::reference cntr);
+
+	std::pair<int, int>			p1;
+	std::pair<int, int>			p2(-78, 129);
+	std::pair<int, int>			p3(p1);
+	std::pair<int, int>			p4 = p2;
 }
