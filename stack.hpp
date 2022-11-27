@@ -24,7 +24,7 @@ namespace ft {
 
 		public:
 
-			/* explicit keywords disallow implicit conversion */
+			/* explicit keyword disallows implicit conversion */
 			explicit stack(const _Container &_c = _Container()) : c(_c)
 			{}
 
