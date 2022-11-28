@@ -98,11 +98,17 @@ namespace ft {
 
 } // namespace ft
 
-/* doesn't throw exceptions unless one of specified options throws
+/* 
+	exceptions:
+	doesn't throw exceptions unless one of specified options throws
 	e.G. constructor of an element (no-throw guarantee)
-
 	construction with move semantics may leave explicit copy constructor
 	in invalid state (no guarantees)
+	otherwise strong guarantee.
+
+	copy assignment operator guarantees that both objects end up in
+	a valid state in case of an exception (basic guarantee)
+
 
 	from C++11 the copy assignment operator is defined as deleted if
 	std::is_copy_assignable<T>::value of either type returns false

@@ -6,13 +6,12 @@
 
 namespace ft {
 
-	template <typename InputIt1, typename InputIt2>
-	bool	equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
+	/* non-mutating algorithms: do not modify objects passes to them */
+	template <typename InputIter1, typename InputIter2>
+	bool	equal(InputIter1 first1, InputIter1 last1, InputIter2 first2)
 	{
 		while (first1 != last1)
 		{
-			/* using because reference mentiones operator==
-				as the main way of comparison */
 			if (!(*first1 == *first2))
 				return (false);
 			/* pre increment is without overhead */
@@ -22,39 +21,75 @@ namespace ft {
 		return (true);
 	}
 
-	/* BinaryPredicate should be a function for comparison 
-		change name of BinaryPredicate paramter to reflect more on its purpose */
-	template <typename InputIt1, typename InputIt2, typename BinaryPredicate>
-	bool	equal(InputIt1 first1, InputIt1 last1, InputIt2 first2,
-					BinaryPredicate _binary_pred)
+
+	/* binary_pred must accept two arguments of any type and return
+		a value  convertible to bool which determines if elements match */
+	template <typename InputIter1, typename InputIter2, typename BinaryPredicate>
+	bool	equal(InputIter1 first1, InputIter1 last1, InputIter2 first2,
+					BinaryPredicate binary_pred)
 	{
-		while (first1 != last1)
+		/* gnu implementation */
+		for (; first1 != last1; ++first1, ++first2)
 		{
-			if (!_binary_pred(*first1, *first2))
+			if (!binary_pred(*first1, *first2))
 				return (false);
-			++first1;
-			++first2;
 		}
 		return (true);
 	}
 
-	template <typename InputIt1, typename InputIt2>
-	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1,
-					InputIt2 first2, InputIt2 last2)
+	/* compares if range [first1, last1] is lexicographically 
+		less than range [first2, last2], mismatch prioritized */
+	template <typename InputIter1, typename InputIter2>
+	bool	lexicographical_compare(InputIter1 first1, InputIter1 last1,
+					InputIter2 first2, InputIter2 last2)
 	{
-
+		while (first1 != last1 && first2 != last2)
+		{
+			if (*first1 < *first2)
+				return (true);
+			else if (*first2 < first1)
+				return (false);
+		}
+		return (first1 == last1 && first2 != last2);
 	}
 
-	/* change name of last parameter to make it clearer it denotes
-		a comparison function */
-	template <typename InputIt1, typename InputIt2, typename Compare>
-	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1,
-					InputIt2 first2, InputIt2 last2, Compare comp)
+	/* comp denotes a comparison function taking two arguments
+		and returning a value convertible to bool */
+	template <typename InputIter1, typename InputIter2, typename Compare>
+	bool	lexicographical_compare(InputIter1 first1, InputIter1 last1,
+					InputIter2 first2, InputIter2 last2, Compare comp)
 	{
-
+		for (; first1 != last1 && first2 != last2, ++first1, ++first2)
+		{
+			if (comp(*f1, *f2))
+				return (true);
+			/* negation of comp is not enough, fires when
+				elements are equal */
+			else if (comp(*f2, *f1))
+				return (false);
+		}
+		return (first1 == last1 && first2 != last2)
 	}
+
+	/* ^ throw if element comparisons or function throws */
 
 } // namespace ft
 
+/* different algorithm for lexicographical compare
+	bool	lexicographical_compare(InputIter1 first1, InputIter1 last1,
+				InputIter2 first2, InputIter2 last2)
+	{
+		while (first1 != last1)
+		{
+			if (first2 == last2 || *first2 < *first1)
+				return (false);
+			else if (*first1 < *first2)
+				return (true);
+			++first1;
+			++first2;
+		}
+		return (first2 != last2);
+	}
+*/
 
 #endif // ALGORITHM_HPP
