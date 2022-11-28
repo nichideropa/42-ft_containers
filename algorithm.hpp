@@ -49,6 +49,8 @@ namespace ft {
 				return (true);
 			else if (*first2 < first1)
 				return (false);
+			++first1;
+			++first2;
 		}
 		return (first1 == last1 && first2 != last2);
 	}
