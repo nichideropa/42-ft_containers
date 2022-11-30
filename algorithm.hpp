@@ -2,8 +2,6 @@
 # define ALGORITHM_HPP
 
 
-#include <algorithm>
-
 namespace ft {
 
 	/* non-mutating algorithms: do not modify objects passes to them */
@@ -92,6 +90,7 @@ namespace ft {
 		}
 		return (first2 != last2);
 	}
+	-> returns lexicographically not less results faster
 */
 
 #endif // ALGORITHM_HPP
