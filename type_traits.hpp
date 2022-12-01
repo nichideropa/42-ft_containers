@@ -5,7 +5,9 @@
 
 namespace ft {
 
-	/* SFINAE (substitution-failure-is-not-an-error) */
+	/* SFINAE (substitution-failure-is-not-an-error) 
+		if condition is true enable_if has public member
+		typedef 'type' equal to T, otherwise no member typedef */
 	template <bool condition, typename T=void>
 	struct enable_if
 	{};
@@ -31,8 +33,7 @@ namespace ft {
 			(non-type template parameters become constexpr) */
 
 		/* conversion operator */
-		// is first const necessary?
-		operator const value_type() const
+		operator value_type() const
 		{
 			return (value);
 		}
@@ -171,23 +172,5 @@ namespace ft {
 
 } // namespace ft
 
-
-
-/* "Think of a trait as a small object whose main purpose is
-	to carry information used by another object or algorithm 
-	to determine 'policy' or 'implementation details'." 
-	- Bjarne Stroustrup
-
-	if condition is true enable_if has public member typedef
-	type equal to T, otherwise no member typedef 
-	
-	"Function overloading in C++ is based on different types, which
-	prevent compile-time integral constants taking part into function
-	overload resolution.
-
-	enable-if ididom:
-		allow function overload based on arbitrary
-		properties of type
-*/
 
 #endif // TYPE_TRAITS_HPP
