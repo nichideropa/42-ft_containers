@@ -22,7 +22,7 @@
 
 int	main()
 {
-	std::vector<int>		v(10);
+	std::vector<void>		v(10);
 
 	std::vector<int>::iterator i = v.begin();
 	for (; i != v.end(); i++)
@@ -77,3 +77,5 @@ volatile is a hint to the implementation to avoid
 	the most specific overload. Usually a normal function 
 	has precedence over a templated function (remember
 	that templated functions can be more precise sometimes) */
+
+/* traits are useful with curiously recurring template pattern */
