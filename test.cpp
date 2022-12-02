@@ -22,7 +22,8 @@
 
 int	main()
 {
-	std::vector<void>		v(10);
+	/* void causes compile time error, because no void reference */
+	std::vector<int>		v(10);
 
 	std::vector<int>::iterator i = v.begin();
 	for (; i != v.end(); i++)
