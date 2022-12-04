@@ -3,6 +3,7 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <list>
 
 #include "test.hpp"
 

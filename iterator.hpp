@@ -4,38 +4,13 @@
 #include <iterator>
 #include <cstddef>	// ptrdiff_t
 
-/* iterators are a generalization of pointers, providing a standard
-	interface for the access to elements of the stl containers
-	where you don't have to worry about the implementation of the container 
-	(abstracts away the details, while keeping behavioural limits) */
-
-/* five main types of iterators (hierarchical)
-	1. input iterator (istream &is) 
-	2. output iterator (ostrema &os)
-	3. forward iterator (std::forward_list::iterator or std::unordered_map::iterator)
-	4. bidirectional iterator (std::list::iterator)
-	5. random access iterator (pointer to C array, std::vector::iterator or std::deque::iterator)
-
-	This categorization is the way algorithms specify which iterator can be used.
-	Until C++20 they do this implicitly by using operations supported only by this
-	iterator and all in higher rank. From C++20 on using concepts.
-*/
-
-/* CPLUSPLUS says: "There is not a single type of bidirectional iterator. Each
-	container may define its own specific iterator type able to iterator 
-	though it and access its elements" */
-
-/* input iterators are read-only once 
-	probably implemented by incrementing when dereferencing a value */
-
-/* quote from gnu implementation: "Abstractions for uniform iterating
-	through various underlying types." */
+/* "Abstractions for uniform iterating through various underlying types." */
 
 namespace ft {
 
 	/* iterator tags */
 	/* empty types for distinguishing iterators.
-		Distincion is made by what they are, not what they contain) */
+		distincion is made by what they are, not what they contain */
 	struct input_iterator_tag { };
 	struct output_iterator_tag { };
 	/* support superset of input iterator operations */
@@ -55,14 +30,14 @@ namespace ft {
 
 	/* common interface to work with iterators
 		gnu sorts: iterator_category, value_type, difference_type, pointer, reference */
-	template <typename Iter>
+	template <typename Iterator>
 	struct iterator_traits
 	{
-		typedef typename Iter::difference_type		difference_type;
-		typedef typename Iter::value_type 			value_type;
-		typedef typename Iter::pointer 				pointer;
-		typedef typename Iter::reference 			reference;
-		typedef typename Iter::iterator_category 	iterator_category;
+		typedef typename Iterator::difference_type		difference_type;
+		typedef typename Iterator::value_type 			value_type;
+		typedef typename Iterator::pointer 				pointer;
+		typedef typename Iterator::reference 			reference;
+		typedef typename Iterator::iterator_category 	iterator_category;
 	};
 
 	/* pointer specialization to allow pointers to be used with
@@ -95,20 +70,55 @@ namespace ft {
 		typedef Category		iterator_category;
 		typedef T				value_type;
 		typedef Distance		difference_type;
-		typedef T*				pointer;
-		typedef T&				reference;
+		typedef Pointer			pointer;
+		typedef Reference		reference;
 
-		/* I would've thought it has a protected member with the values */
-		/* An article says that the developers chose a design
-			where data and operation are separated. The data being held by
-			the container, while the operations are done using algorithms.
-			Bridging them both are iterators */
+		/* the developers intention was to separate data (container)
+			from operation (algorithm). As one needs information of the other
+			iterators bridge them. the reason why the default iterator class
+			doesn't hold any member. */
 	};
 
-	/* not a struct but a class is necessary */
-	/* the iterator you can get from scope resolution
-		of the container is only a typedef of the iterator
-		implementation */
+
+	/* reverse_iterator is an iterator adaptor, that reverses the direction
+		of an iterator. it needs at least a bidirectional iterator because
+		it has the necessary operations to make this work */
+	/* a copy of the initial (base) iterator is kept internally as a protected
+		member to reflect the options */
+	/* to me it seems that the base iterator is used with the operations
+		just reversed (incrementing -> decrementing base iterator) */
+	template <typename Iterator>
+	class reverse_iterator : iterator<iterator_traits<Iterator>::iter_category,
+										iterator_traits<Iterator>::value_type,
+										iterator_traits<Iterator>::distance_type,
+										iterator_traits<Iterator>::pointer,
+										iterator_traits<Iterator>::reference>
+	{
+		public:
+			typedef Iterator										iterator_type;
+			typedef iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef iterator_traits<Iterator>::value_type			value_type;
+			typedef iterator_traits<Iterator>::difference_type		difference_type;
+			typedef iterator_traits<Iterator>::pointer				pointer;
+			typedef iterator_traits<Iterator>::reference			reference;
+
+		protected:
+			iterator_type		current;
+
+		public:
+			/* think about naming the parameters in a good way*/
+			reverse_iterator() : current()
+			{}
+
+			explicit reverse_iterator(iterator_type _it) : current(_it)
+			{}
+
+			template <typename Iter>
+			reverse_iterator(const reverse_iterator<Iter> &rev_it)
+			
+
+	};
+
 	/* somehow the iterators need to have access to the containers
 		elements even though they are separated. As iterators are connected
 		to the container, the container can reference itself in the iterator */
