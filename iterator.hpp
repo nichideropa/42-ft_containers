@@ -25,6 +25,7 @@ namespace ft {
 	// typedef std::random_access_iterator_tag			random_access_iterator_tag;
 
 
+
 	template <typename Iterator>
 	struct iterator_traits
 	{
@@ -117,8 +118,6 @@ namespace ft {
 				return (*this);
 			}
 
-			/* one reference says base iter returned as copy
-				-> return () */
 			iterator_type
 			base() const
 			{ return current; }
@@ -130,16 +129,15 @@ namespace ft {
 				return (*--tmp);
 			}
 
-			/* add parenthesis if necessary */
 			pointer		operator->() const
 			{
-				return (&operator*());
+				return (&(operator*()));
 			}
 
 			reference	operator[](difference_type n) const;
 			{
 				return (*(*this + n));
-				// return (*(current - 1 - n));
+				/* how can you express the same differently */
 				// return (base()[-n - 1]);
 			}
 
@@ -149,7 +147,6 @@ namespace ft {
 				return (*this);
 			}
 
-			/* you can use define pre increment operator on 'this' pointer */
 			reverse_iterator	operator++(int)
 			{
 				reverse_iterator	tmp = *this;
@@ -164,7 +161,6 @@ namespace ft {
 				return (*this);
 			}
 
-			/* you can use copy constructor for tmp too */
 			reverse_iterator	operator--(int)
 			{
 				reverse_iterator	tmp(*this);
@@ -195,8 +191,7 @@ namespace ft {
 				return (*this);
 			}
 
-
-			/* don't need to befriend comparisons as they use public base function */
+			/* no friends because relational operators can access base function */
 	};
 
 	/* compares the underlying base iterators to one another, using inverse
@@ -241,11 +236,9 @@ namespace ft {
 		return !(lhs < rhs);
 	}
 
-	/* C++98 initially could only compare reverse iterators with the same
-		underlying type. a fix was applied retroactive to allow comparisons
-		of different types.
-		(implies that only const and non-const iterators coming from the same
-		object can be safely compared) */
+	/* C++98 initially could only compare reverse iterators with the same underlying type.
+		a fix was applied retroactive to allow comparisons of different types. (implies that
+		only const and non-const iterators coming from the same object can be safely compared) */
 	template <typename Iterator1, typename Iterator2>
 	bool	operator==(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
 	{
@@ -288,7 +281,7 @@ namespace ft {
 									const reverse_iterator<Iterator> &rev_it)
 	{
 		return (reverse_iterator<Iterator>(rev_it.base() - n));
-		// return (rev_it + n);
+		 
 	}
 
 	/* same goes here as for relational operator fix applied retroactively */
