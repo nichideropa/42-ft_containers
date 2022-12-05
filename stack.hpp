@@ -28,8 +28,6 @@ namespace ft {
 			explicit stack(const _Container &_c = _Container()) : c(_c)
 			{}
 
-			/* don't mention the internal implementation of the functions
-			you will use your own implemented container as the default underlying of stack */
 			/* sort it to make its appearance look good, ugly now */
 			bool empty() const
 			{ return c.empty(); }

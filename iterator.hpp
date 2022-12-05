@@ -8,28 +8,23 @@
 
 namespace ft {
 
-	/* iterator tags */
-	/* empty types for distinguishing iterators.
-		distincion is made by what they are, not what they contain */
+	/* iterator tags (empty types for distinguishing iterators)
+		distincion is made by what they are, not what they contain.
+		inheritance implies the support for a superset of operations
+		of base class */
 	struct input_iterator_tag { };
 	struct output_iterator_tag { };
-	/* support superset of input iterator operations */
 	struct foward_iterator_tag : public input_iterator_tag { };
-	/* suport a superset of forward iterator operations */
 	struct bidirectional_iterator_tag : public forward_iterator_tag { };
-	/* support a superset of bidirectional iterator operations */
 	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
 
-	/* it seems that the std iterator tags need to be used to work properly */
-	typedef std::input_iterator_tag					input_iterator_tag;
-	typedef std::output_iterator_tag				output_iterator_tag;
-	typedef std::forward_iterator_tag				forward_iterator_tag;
-	typedef std::bidirectional_iterator_tag			bidirectional_iterator_tag;
-	typedef std::random_access_iterator_tag			random_access_iterator_tag;
+	// typedef std::input_iterator_tag					input_iterator_tag;
+	// typedef std::output_iterator_tag				output_iterator_tag;
+	// typedef std::forward_iterator_tag				forward_iterator_tag;
+	// typedef std::bidirectional_iterator_tag			bidirectional_iterator_tag;
+	// typedef std::random_access_iterator_tag			random_access_iterator_tag;
 
 
-	/* common interface to work with iterators
-		gnu sorts: iterator_category, value_type, difference_type, pointer, reference */
 	template <typename Iterator>
 	struct iterator_traits
 	{
@@ -80,13 +75,8 @@ namespace ft {
 	};
 
 
-	/* reverse_iterator is an iterator adaptor, that reverses the direction
-		of an iterator. it needs at least a bidirectional iterator because
-		it has the necessary operations to make this work */
-	/* a copy of the initial (base) iterator is kept internally as a protected
-		member to reflect the options */
-	/* to me it seems that the base iterator is used with the operations
-		just reversed (incrementing -> decrementing base iterator) */
+	/* reverse_iterator is an iterator adaptor reversing an iterators direction
+		(needs at least a bidirectional iterator) */
 	template <typename Iterator>
 	class reverse_iterator : iterator<iterator_traits<Iterator>::iter_category,
 										iterator_traits<Iterator>::value_type,
@@ -106,18 +96,216 @@ namespace ft {
 			iterator_type		current;
 
 		public:
-			/* think about naming the parameters in a good way*/
+
 			reverse_iterator() : current()
 			{}
 
-			explicit reverse_iterator(iterator_type _it) : current(_it)
+			explicit reverse_iterator(iterator_type _iter) : current(_iter)
+			{}
+
+			/* copy constructor for reverse iterator of other type if the
+				underlying iterator can be converted to current */
+			template <typename Iter>
+			reverse_iterator(const reverse_iterator<Iter> &_other)
+			: current(_other.base())
 			{}
 
 			template <typename Iter>
-			reverse_iterator(const reverse_iterator<Iter> &rev_it)
-			
+			reverse_iterator	&operator=(const reverse_iterator<Iter> &_other)
+			{
+				current = _other.base();
+				return (*this);
+			}
 
+			/* one reference says base iter returned as copy
+				-> return () */
+			iterator_type
+			base() const
+			{ return current; }
+
+			/* returns reference or pointer to element previous to current */
+			reference	operator*() const
+			{
+				iterator_type	tmp = current;
+				return (*--tmp);
+			}
+
+			/* add parenthesis if necessary */
+			pointer		operator->() const
+			{
+				return (&operator*());
+			}
+
+			reference	operator[](difference_type n) const;
+			{
+				return (*(*this + n));
+				// return (*(current - 1 - n));
+				// return (base()[-n - 1]);
+			}
+
+			reverse_iterator	&operator++()
+			{
+				--current;
+				return (*this);
+			}
+
+			/* you can use define pre increment operator on 'this' pointer */
+			reverse_iterator	operator++(int)
+			{
+				reverse_iterator	tmp = *this;
+				--current;
+				// ++(*this);
+				return (tmp);
+			}
+
+			reverse_iterator	&operator--()
+			{
+				++current;
+				return (*this);
+			}
+
+			/* you can use copy constructor for tmp too */
+			reverse_iterator	operator--(int)
+			{
+				reverse_iterator	tmp(*this);
+				++current;
+				return (tmp);
+			}
+
+			/* require random-access iterator as base iterator */
+			reverse_iterator	&operator+(difference_type n) const
+			{
+				return (reverse_iterator(current - n));
+			}
+
+			reverse_iterator	&operator-(difference_type n) const
+			{
+				return (reverse_iterator(current + n));
+			}
+
+			reverse_iterator	&operator+=(difference_type n)
+			{
+				current -= n;
+				return (*this);
+			}
+
+			reverse_iterator	&operator-=(difference_type n)
+			{
+				current += n;
+				return (*this);
+			}
+
+
+			/* don't need to befriend comparisons as they use public base function */
 	};
+
+	/* compares the underlying base iterators to one another, using inverse
+		comparison operators for lexicographical comparison */
+	template <typename Iterator>
+	bool	operator==(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+
+	/* actually lhs > rhs */
+	template <typename Iterator>
+	bool	operator<(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return (rhs.base() < lhs.base());
+	}
+
+	template <typename Iterator>
+	bool	operator!=(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	/* actually lhs < rhs */
+	template <typename Iterator>
+	bool	operator>(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	/* actually lhs >= rhs */
+	template <typename Iterator>
+	bool	operator<=(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	/* actually lhs <= rhs */
+	template <typename Iterator>
+	bool	operator>=(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	/* C++98 initially could only compare reverse iterators with the same
+		underlying type. a fix was applied retroactive to allow comparisons
+		of different types.
+		(implies that only const and non-const iterators coming from the same
+		object can be safely compared) */
+	template <typename Iterator1, typename Iterator2>
+	bool	operator==(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator<(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return (rhs.base() < lhs.base());
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator!=(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator>(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator<=(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator>=(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	template <typename Iterator>
+	reverse_iterator<Iterator>
+	operator+(typename reverse_iterator<Iterator>::difference_type n,
+									const reverse_iterator<Iterator> &rev_it)
+	{
+		return (reverse_iterator<Iterator>(rev_it.base() - n));
+		// return (rev_it + n);
+	}
+
+	/* same goes here as for relational operator fix applied retroactively */
+	template <typename Iterator>
+	typename reverse_iterator<Iterator>::difference_type
+	operator-(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return (rhs.base() - lhs.base());
+	}
+
+	
+	template <typename Iterator1, typename Iterator2>
+	typename reverse_iterator<Iterator1>::difference_type
+	operator-(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
+	{
+		return (rhs.base() - lhs.base());
+	}
 
 	/* somehow the iterators need to have access to the containers
 		elements even though they are separated. As iterators are connected
@@ -125,10 +313,6 @@ namespace ft {
 	/* iterator type of std::vector<T> is implementation defined. It does not 
 		need to be a nested class template, it might be simply an alias for a pointer
 		to the value type T*. */
-	template <typename T, typename _Container>
-	class input_iterator : public iterator<input_iterator_tag, T>
-	{
-	};
 
 } // namespace ft
 
