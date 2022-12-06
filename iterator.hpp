@@ -307,6 +307,39 @@ namespace ft {
 		need to be a nested class template, it might be simply an alias for a pointer
 		to the value type T*. */
 
+	/* the vector has to support all the same operations like reverse iterator
+		just in the right way, we can think of the reverse iterator as a pointer
+		just with operations inverted 
+		
+		template <typename T>
+		class Vector
+		{
+			typedef T*			iterator			|| typedef pointer			iterator;
+			typedef const T*	const_iterator		|| typedef const pointer	const_iterator;
+
+			typedef _normal_iterator<pointer>		iterator;
+			typedef _normal_iterator<const pointer>	const_iterator;
+		}
+	*/
+
+	template <Iterator>
+	class	__wrap_iter
+	{
+		public:
+			typedef Iterator										iterator_type;
+			typedef iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef iterator_traits<Iterator>::value_type			value_type;
+			typedef iterator_traits<Iterator>::difference_type		difference_type;
+			typedef iterator_traits<Iterator>::pointer				pointer;
+			typedef iterator_traits<Iterator>::reference			reference;
+
+		protected:
+			iterator_type		current;
+
+		public:
+			
+	}
+
 } // namespace ft
 
 #endif // ITERATOR_HPP

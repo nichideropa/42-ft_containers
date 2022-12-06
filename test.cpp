@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <type_traits>
+// #include <type_traits>
 #include <vector>
 #include <list>
 
@@ -24,18 +24,43 @@
 int	main()
 {
 	/* void causes compile time error, because no void reference */
-	std::vector<int>		v(10);
+	// std::vector<int>		v(10);
 
-	std::vector<int>::iterator i = v.begin();
-	for (; i != v.end(); i++)
-		*i = 1;
+	// std::vector<int>::iterator i = v.begin();
+	// for (; i != v.end(); i++)
+	// 	*i = 1;
 	
-	if (i == v.end())
-		std::cout << "true" << std::endl;
-	std::cout << *i << std::endl;
-	i++;
-	*i = 2;
-	std::cout << *i << std::endl;
+	// if (i == v.end())
+	// 	std::cout << "true" << std::endl;
+	// std::cout << *i << std::endl;
+	// i++;
+	// *i = 2;
+	// std::cout << *i << std::endl;
+
+
+	/* test for how the reverse iterator works */
+
+	std::vector<int>			v;
+
+	for (size_t i = 0; i < 10; i++)
+		v.push_back(i + 1);
+
+	std::vector<int>::reverse_iterator			r = v.rbegin();
+	std::vector<int>::reverse_iterator			s = v.rbegin();
+	std::vector<int>::const_reverse_iterator	t = v.rbegin();
+
+	std::vector<const int>::reverse_iterator	u = w.rbegin();
+
+	if (r == s)
+		std::cout << "r == s" << std::endl;
+	if (r == t)
+		std::cout << "r == t" << std::endl;
+	if (s == t)
+		std::cout << "s == t" << std::endl;
+	if (r == u)
+		std::cout << "r == u" << std::endl;
+	if (t == u)
+		std::cout << "t == u" << std::endl;
 
 	return (0);
 }
