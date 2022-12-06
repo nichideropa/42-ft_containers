@@ -14,7 +14,7 @@ namespace ft {
 		of base class */
 	struct input_iterator_tag { };
 	struct output_iterator_tag { };
-	struct foward_iterator_tag : public input_iterator_tag { };
+	struct forward_iterator_tag : public input_iterator_tag { };
 	struct bidirectional_iterator_tag : public forward_iterator_tag { };
 	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
 
@@ -134,13 +134,6 @@ namespace ft {
 				return (&(operator*()));
 			}
 
-			reference	operator[](difference_type n) const;
-			{
-				return (*(*this + n));
-				/* how can you express the same differently */
-				// return (base()[-n - 1]);
-			}
-
 			reverse_iterator	&operator++()
 			{
 				--current;
@@ -189,6 +182,13 @@ namespace ft {
 			{
 				current += n;
 				return (*this);
+			}
+
+			reference	operator[](difference_type n) const;
+			{
+				return (*(*this + n));
+				/* how can you express the same differently */
+				// return (base()[-n - 1]);
 			}
 
 			/* no friends because relational operators can access base function */
@@ -322,35 +322,7 @@ namespace ft {
 		}
 	*/
 
-
-	/* minimum an iterator has to support:
-			. copy constructible
-			. copy assignable
-			. destructible
-			. dereferenceale
-			. pre-incrementable
-		
-		input-/output iterator (addtitionally)
-			. equality and inequality
-			. post-incrementable
-			
-		forward iterator (additionally)
-			. default constructible
-			. immutable (const iterator)
-		
-		bidirectional iterator (additionally)
-			. pre-decrementable
-			. post-decrementable
-			
-		random access iterator (additionally)
-			. compound addition assignment
-			. compount substraction assignment
-			. addition
-			. substraction
-			. less, greate, less-or-equal, greater-or-equal
-			. subscriptiing */
-
-	template <Iterator>
+	template <typename Iterator>
 	class	__wrap_iter
 	{
 		public:
@@ -380,7 +352,72 @@ namespace ft {
 
 			~__wrap_iter()
 			{}
-	}
+
+			reference	operator*() const
+			{
+				return (*current);
+			}
+
+			pointer		operator->() const
+			{
+				return (current);
+			}
+
+			__wrap_iter	&operator++()
+			{
+				++current;
+				return (*this);
+			}
+
+			__wrap_iter	operator++(int)
+			{
+				__wrap_iter	tmp = *this;
+				++current;
+				return (tmp);
+			}
+
+			__wrap_iter	&operator--()
+			{
+				--current;
+				return (*this);
+			}
+
+			__wrap_iter	operator--(int)
+			{
+				__wrap_iter	tmp = *this;
+				--current;
+				return (tmp);
+			}
+
+			__wrap_iter	&operator+(difference_type n) const
+			{
+				return (__wrap_iter(current + n));
+			}
+
+			__wrap_iter	&operator-(difference_type n) const
+			{
+				return (__wrap_iter(current - n));
+			}
+
+			__wrap_iter	&operator+=(difference_type n)
+			{
+				current += n;
+				return (*this);
+			}
+
+			__wrap_iter	&operator-=(difference_type n)
+			{
+				current -= n;
+				return (*this);
+			}
+
+			__wrap_iter	operator[](difference_type n) const
+			{
+				return (current[n]);
+			}
+	};
+
+	/* comparisons to come */
 
 	// template <typename Iterator, typename _Container>
 	// class __normal_iterator
@@ -388,5 +425,37 @@ namespace ft {
 	// }
 
 } // namespace ft
+
+
+/* iterator requirements for each type, supporting
+	the previous operations by default
+
+	minimum:
+		. copy constructible
+		. copy assignable
+		. destructibe
+		. dereferenceable (*it)
+		. pre-incrementable (++it)
+		
+	input/output iterator
+		. equality and inequality (it1 [!:=]= it2)
+		. post-incrementable (it++)
+		
+	forward iterator
+		. default constructible
+		. immutable (const iterator)
+
+	bidirectional iterator
+		. pre-decrementable (--it)
+		. post-decrementable (it--)
+
+	random access iterator
+		. compound addition (+=)
+		. compound substraction (-=)
+		. addition (+)
+		. substraction (-)
+		. less and greater (< & >)
+		. less-or-equal and greate-or-equal (<= & >=)
+	*/
 
 #endif // ITERATOR_HPP
