@@ -322,6 +322,34 @@ namespace ft {
 		}
 	*/
 
+
+	/* minimum an iterator has to support:
+			. copy constructible
+			. copy assignable
+			. destructible
+			. dereferenceale
+			. pre-incrementable
+		
+		input-/output iterator (addtitionally)
+			. equality and inequality
+			. post-incrementable
+			
+		forward iterator (additionally)
+			. default constructible
+			. immutable (const iterator)
+		
+		bidirectional iterator (additionally)
+			. pre-decrementable
+			. post-decrementable
+			
+		random access iterator (additionally)
+			. compound addition assignment
+			. compount substraction assignment
+			. addition
+			. substraction
+			. less, greate, less-or-equal, greater-or-equal
+			. subscriptiing */
+
 	template <Iterator>
 	class	__wrap_iter
 	{
@@ -337,8 +365,27 @@ namespace ft {
 			iterator_type		current;
 
 		public:
-			
+			__wrap_iter() : current() {}
+			explicit __wrap_iter(iterator_type _iter) : current(_iter)
+			{}
+
+			__wrap_iter(const __wrap_iter &_other) : current(_other.current)
+			{}
+
+			__wrap_iter	&operator=(const __wrap_iter &_other)
+			{
+				current = _other.current;
+				return (*this);
+			}
+
+			~__wrap_iter()
+			{}
 	}
+
+	// template <typename Iterator, typename _Container>
+	// class __normal_iterator
+	// {
+	// }
 
 } // namespace ft
 
