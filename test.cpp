@@ -49,7 +49,6 @@ int	main()
 	std::vector<int>::reverse_iterator			s = v.rbegin();
 	std::vector<int>::const_reverse_iterator	t = v.rbegin();
 
-	std::vector<const int>::reverse_iterator	u = w.rbegin();
 
 	if (r == s)
 		std::cout << "r == s" << std::endl;
@@ -57,10 +56,6 @@ int	main()
 		std::cout << "r == t" << std::endl;
 	if (s == t)
 		std::cout << "s == t" << std::endl;
-	if (r == u)
-		std::cout << "r == u" << std::endl;
-	if (t == u)
-		std::cout << "t == u" << std::endl;
 
 	return (0);
 }

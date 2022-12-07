@@ -75,7 +75,7 @@ namespace ft {
 	template <typename T, typename _Con>
 	bool	operator!=(const stack<T, _Con> &lhs, const stack<T, _Con> &rhs)
 	{
-		return !(lhs == rhs)
+		return !(lhs == rhs);
 	}
 
 	template <typename T, typename _Con>

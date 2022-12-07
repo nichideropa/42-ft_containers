@@ -59,16 +59,16 @@ namespace ft {
 	bool	lexicographical_compare(InputIter1 first1, InputIter1 last1,
 					InputIter2 first2, InputIter2 last2, Compare comp)
 	{
-		for (; first1 != last1 && first2 != last2, ++first1, ++first2)
+		for (; first1 != last1 && first2 != last2; ++first1, ++first2)
 		{
-			if (comp(*f1, *f2))
+			if (comp(*first1, *first2))
 				return (true);
 			/* negation of comp is not enough, fires when
 				elements are equal */
-			else if (comp(*f2, *f1))
+			else if (comp(*first2, *first1))
 				return (false);
 		}
-		return (first1 == last1 && first2 != last2)
+		return (first1 == last1 && first2 != last2);
 	}
 
 	/* ^ throw if element comparisons or function throws */

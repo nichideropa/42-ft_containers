@@ -23,7 +23,7 @@ namespace ft {
 		{}
 
 		pair(const first_type &_a, const second_type &_b)
-		: first(a), second(b)
+		: first(_a), second(_b)
 		{}
 
 		template <typename U, typename V>
@@ -62,7 +62,7 @@ namespace ft {
 	bool	operator<(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
 	{
 		/* follows the order and conditions mentioned by the reference*/
-		return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second))
+		return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
 	}
 
 	template <typename T1, typename T2>
@@ -74,19 +74,19 @@ namespace ft {
 	template <typename T1, typename T2>
 	bool	operator>(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
 	{
-		return (rhs < lhs)
+		return (rhs < lhs);
 	}
 
 	template <typename T1, typename T2>
 	bool	operator<=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
 	{
-		return !(rhs < lhs)
+		return !(rhs < lhs);
 	}
 
 	template <typename T1, typename T2>
 	bool	operator>=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
 	{
-		return !(lhs < rhs)
+		return !(lhs < rhs);
 	}
 
 	/* originally inlined */
