@@ -187,7 +187,6 @@ namespace ft {
 			reference	operator[](difference_type n) const;
 			{
 				return (*(*this + n));
-				/* how can you express the same differently */
 				// return (base()[-n - 1]);
 			}
 
@@ -300,28 +299,8 @@ namespace ft {
 		return (rhs.base() - lhs.base());
 	}
 
-	/* somehow the iterators need to have access to the containers
-		elements even though they are separated. As iterators are connected
-		to the container, the container can reference itself in the iterator */
-	/* iterator type of std::vector<T> is implementation defined. It does not 
-		need to be a nested class template, it might be simply an alias for a pointer
-		to the value type T*. */
 
-	/* the vector has to support all the same operations like reverse iterator
-		just in the right way, we can think of the reverse iterator as a pointer
-		just with operations inverted 
-		
-		template <typename T>
-		class Vector
-		{
-			typedef T*			iterator			|| typedef pointer			iterator;
-			typedef const T*	const_iterator		|| typedef const pointer	const_iterator;
-
-			typedef _normal_iterator<pointer>		iterator;
-			typedef _normal_iterator<const pointer>	const_iterator;
-		}
-	*/
-
+	/* wrapper for pointer, to serve as iterator for vector (random-access) */
 	template <typename Iterator>
 	class	__wrap_iter
 	{
@@ -334,95 +313,152 @@ namespace ft {
 			typedef iterator_traits<Iterator>::reference			reference;
 
 		protected:
-			iterator_type		current;
+			iterator_type		_current;
 
 		public:
-			__wrap_iter() : current() {}
-			explicit __wrap_iter(iterator_type _iter) : current(_iter)
+			__wrap_iter() : _current()
 			{}
 
-			__wrap_iter(const __wrap_iter &_other) : current(_other.current)
+			/* should parameter be const? */
+			explicit __wrap_iter(iterator_type _iter) : _current(_iter)
+			{}
+
+			/* allow conversion of iterator to const iterator */
+			__wrap_iter(const __wrap_iter &_other) : _current(_other.base())
 			{}
 
 			__wrap_iter	&operator=(const __wrap_iter &_other)
 			{
-				current = _other.current;
+				_current = _other.base();
 				return (*this);
 			}
 
-			~__wrap_iter()
-			{}
-
 			reference	operator*() const
 			{
-				return (*current);
+				return (*_current);
 			}
 
 			pointer		operator->() const
 			{
-				return (current);
+				return (_current);
 			}
 
 			__wrap_iter	&operator++()
 			{
-				++current;
+				++_current;
 				return (*this);
 			}
 
 			__wrap_iter	operator++(int)
 			{
 				__wrap_iter	tmp = *this;
-				++current;
+				++_current;
 				return (tmp);
+				// return (__wrap_iter(_current++));
 			}
+
+			/* requirements for bidirectional iterator */
 
 			__wrap_iter	&operator--()
 			{
-				--current;
+				--_current;
 				return (*this);
 			}
 
 			__wrap_iter	operator--(int)
 			{
 				__wrap_iter	tmp = *this;
-				--current;
+				--_current;
 				return (tmp);
+				// return (__wrap_iter(_current--));
 			}
 
-			__wrap_iter	&operator+(difference_type n) const
-			{
-				return (__wrap_iter(current + n));
-			}
+			/* requirements for random access iterator */
 
-			__wrap_iter	&operator-(difference_type n) const
+			reference	operator[](difference_type n) const
 			{
-				return (__wrap_iter(current - n));
+				return (_current[n]);
 			}
 
 			__wrap_iter	&operator+=(difference_type n)
 			{
-				current += n;
+				_current += n;
 				return (*this);
 			}
 
 			__wrap_iter	&operator-=(difference_type n)
 			{
-				current -= n;
+				_current -= n;
 				return (*this);
 			}
 
-			__wrap_iter	operator[](difference_type n) const
+			__wrap_iter	&operator+(difference_type n) const
 			{
-				return (current[n]);
+				return (__wrap_iter(_current + n));
+			}
+
+			__wrap_iter	&operator-(difference_type n) const
+			{
+				return (__wrap_iter(_current - n));
+			}
+
+			const iterator_type &base() const
+			{
+				return (_current);
 			}
 	};
 
-	/* comparisons to come */
+	/* requirements for forward iterator */
 
-	// template <typename Iterator, typename _Container>
-	// class __normal_iterator
-	// {
-	// }
+	template <typename Iterator>
+	bool	operator==(const __wrap_iter<Iterator> &lhs, const __wrap_iter<Iterator> &rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator==(const __wrap_iter<Iterator1> &lhs, const _wrap_iter<Iterator2> &rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+
+	template <typename Iterator>
+	bool	operator!=(const __wrap_iter<Iterator> &lhs, const __wrap_iter<Iterator> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator!=(const __wrap_iter<Iterator1> &lhs, const __wrap_iter<Iterator2> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	/* requirements for random access iterator */
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator<(const __wrap_iter<Iterator1> &lhs, const __wrap_iter<Iterator2> &rhs)
+	{
+		return (lhs.base() < rhs.base());
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator>(const __wrap_iter<Iterator1> &lhs, const __wrap_iter<Iterator2> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator<=(const __wrap_iter<Iterator1> &lhs, const __wrap_iter<Iterator2> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	bool	operator>=(const __wrap_iter<Iterator1> &lhs, const __wrap_iter<Iterator2> &rhs)
+	{
+		return !(lhs < rhs);
+	}
 
 } // namespace ft
 
