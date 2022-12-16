@@ -158,6 +158,7 @@ namespace ft {
 			{
 				reverse_iterator	tmp(*this);
 				++current;
+				// --(*this);
 				return (tmp);
 			}
 
@@ -391,11 +392,6 @@ namespace ft {
 
 			/* requirements for random access iterator */
 
-			reference	operator[](difference_type n) const
-			{
-				return (_current[n]);
-			}
-
 			__wrap_iter	&operator+=(difference_type n)
 			{
 				_current += n;
@@ -418,7 +414,18 @@ namespace ft {
 				return (__wrap_iter(_current - n));
 			}
 
+			reference	operator[](difference_type n) const
+			{
+				return (_current[n]);
+			}
+
 			iterator_type &base() const
+			{
+				return (_current);
+			}
+
+			// one way conversion: iterator -> const_iterator
+    		operator __wrap_iter<Iterator>() const
 			{
 				return (_current);
 			}
@@ -453,6 +460,7 @@ namespace ft {
 	}
 
 	/* requirements for forward iterator */
+	/* inlined */
 
 	template <typename Iterator>
 	bool	operator==(const __wrap_iter<Iterator> &lhs, const __wrap_iter<Iterator> &rhs)
