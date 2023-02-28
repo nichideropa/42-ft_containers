@@ -30,6 +30,11 @@ namespace ft {
 		pair(const pair<U,V> &_p) : first(_p.first), second(_p.second)
 		{}
 
+		/* copy constructor
+			is defaulted (until C++11 it's implicitly declared) */
+		// pair(const pair &p) : first(p.first), second(p.second)
+		// {}
+
 		/* ill formed if either attributes const qualified , reference
 			with inaccessible copy assignment operator */
 		pair	&operator=(const pair &_p)
@@ -42,11 +47,6 @@ namespace ft {
 			}
 			return (*this);
 		}
-
-		/* copy constructor
-			is defaulted (until C++11 it's implicitly declared)a */
-		// pair(const pair &p) : first(p.first), second(p.second)
-		// {}
 	};
 
 	/* originally inlined */
@@ -91,7 +91,7 @@ namespace ft {
 
 	/* originally inlined */
 	template <typename T1, typename T2>
-	pair<T1, T2> make_pair(T1 _f, T2 _s)
+	inline pair<T1, T2> make_pair(T1 _f, T2 _s)
 	{
 		return (pair<T1, T2>(_f, _s));
 	}
