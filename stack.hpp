@@ -3,13 +3,12 @@
 
 // pragma once
 
-#include <deque>
-// std deque must be replaced by our own vector
-// #include "vector.hpp"
+#include <stack>
+#include "vector.hpp"
 
 namespace ft {
 
-	template <typename T, typename _Container=std::deque<T> >
+	template <typename T, typename _Container=ft::vector<T> >
 	class stack
 	{
 		public:
@@ -18,6 +17,8 @@ namespace ft {
 			typedef _Container									container_type;
 			typedef typename container_type::value_type			value_type;
 			typedef typename container_type::size_type			size_type;
+			typedef typename container_type::reference			reference;
+			typedef typename container_type::const_reference	const_reference;
 
 		protected:
 			_Container		c;
@@ -35,10 +36,10 @@ namespace ft {
 			size_type size() const
 			{ return c.size(); }
 
-			value_type &top()
+			reference top()
 			{ return c.back(); }
 
-			const value_type &top() const
+			const_reference top() const
 			{ return c.back(); }
 
 			void push(const value_type &value)
@@ -97,15 +98,5 @@ namespace ft {
 	}
 
 } // namespace ft
-
-
-/* some additional not required for C++98 
-	typedef typename container_type::reference			reference
-	typedef typename container_type::const_reference	const_reference
-	
-	methods with new typedef:
-	reference top() { return c.back(); }
-	const_reference top() const { return c.back(); }
-*/
 
 #endif // STACK_HPP
