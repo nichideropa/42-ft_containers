@@ -470,34 +470,9 @@ namespace ft {
 	/* maybe name the template parameters different to make clear to the reader
 		that it was meant to work with a pointer (for vector)
 		it can equally work with a wrapper that supports same operations */
-	/* nom member addition and substraction */
-	template <typename Iterator>
-	normal_iterator<Iterator>
-	operator+(typename normal_iterator<Iterator>::difference_type n,
-								const normal_iterator<Iterator> &_it)
-	{
-		// return (normal_iterator<Iterator>(_it.base() + n));
-		_it += n;
-		return (_it);
-	}
-
-	template <typename Iterator>
-	typename normal_iterator<Iterator>::difference_type
-	operator-(const normal_iterator<Iterator> &lhs, const normal_iterator<Iterator> &rhs)
-	{
-		return (rhs.base() - lhs.base());
-	}
-
-	template <typename Iterator1, typename Iterator2>
-	typename normal_iterator<Iterator1>::difference_type
-	operator-(const normal_iterator<Iterator1> &lhs, const normal_iterator<Iterator2> &rhs)
-	{
-		return (rhs.base() - lhs.base());
-	}
 
 	/* requirements for forward iterator */
 	/* inlined */
-
 	template <typename Iterator>
 	bool	operator==(const normal_iterator<Iterator> &lhs, const normal_iterator<Iterator> &rhs)
 	{
@@ -570,6 +545,31 @@ namespace ft {
 	bool	operator>=(const normal_iterator<Iterator1> &lhs, const normal_iterator<Iterator2> &rhs)
 	{
 		return !(lhs < rhs);
+	}
+
+	/* nom member addition and substraction */
+	template <typename Iterator>
+	normal_iterator<Iterator>
+	operator+(typename normal_iterator<Iterator>::difference_type n,
+								const normal_iterator<Iterator> &_it)
+	{
+		// return (normal_iterator<Iterator>(_it.base() + n));
+		_it += n;
+		return (_it);
+	}
+
+	template <typename Iterator>
+	typename normal_iterator<Iterator>::difference_type
+	operator-(const normal_iterator<Iterator> &lhs, const normal_iterator<Iterator> &rhs)
+	{
+		return (rhs.base() - lhs.base());
+	}
+
+	template <typename Iterator1, typename Iterator2>
+	typename normal_iterator<Iterator1>::difference_type
+	operator-(const normal_iterator<Iterator1> &lhs, const normal_iterator<Iterator2> &rhs)
+	{
+		return (rhs.base() - lhs.base());
 	}
 
 } // namespace ft
