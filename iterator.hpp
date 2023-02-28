@@ -572,6 +572,35 @@ namespace ft {
 		return (rhs.base() - lhs.base());
 	}
 
+
+
+	/* distance functions */
+
+	template <typename Iter>
+	typename iterator_traits<Iter>::difference_type
+	distance(Iter first, Iter last)
+	{
+		return (distance(first, last, iterator_category(first)));
+	}
+
+	template <typename RandomAccessIterator>
+	typename iterator_traits<RandomAccessIterator>::difference_type
+	distance(RandomAccessIterator first, RandomAccessIterator last, random_access_iterator_tag)
+	{
+		return (last - first);
+	}
+
+	template <typename InputIterator>
+	typename iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last, input_iterator_tag)
+	{
+		typename iterator_traits<InputIterator>::difference_type	dis(0);
+
+		for (; first != last; ++first)
+			++dis;
+		return (dis);
+	}
+
 } // namespace ft
 
 
