@@ -4,7 +4,9 @@
 
 namespace ft {
 
-	/* non-mutating algorithms: do not modify objects passes to them */
+	/* non-mutating algorithms: do not modify objects passed to them */
+
+	/* comparisons are only done in the range of the first object */
 	template <typename InputIter1, typename InputIter2>
 	bool	equal(InputIter1 first1, InputIter1 last1, InputIter2 first2)
 	{
@@ -12,16 +14,14 @@ namespace ft {
 		{
 			if (!(*first1 == *first2))
 				return (false);
-			/* pre increment is without overhead */
 			++first1;
 			++first2;
 		}
 		return (true);
 	}
 
-
 	/* binary_pred must accept two arguments of any type and return
-		a value  convertible to bool which determines if elements match */
+		a value convertible to bool which determines if elements match */
 	template <typename InputIter1, typename InputIter2, typename BinaryPredicate>
 	bool	equal(InputIter1 first1, InputIter1 last1, InputIter2 first2,
 					BinaryPredicate binary_pred)

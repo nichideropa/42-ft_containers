@@ -62,7 +62,7 @@ int	main()
 
 /*
 Non-type parameter is a parameter with predefined type which
-	is substituted for a constexpr value passes as argument.
+	is substituted for a constexpr value passed as argument.
 	Following types can be used for non-type parameters:
 		-> integral type
 		-> enumeration type
