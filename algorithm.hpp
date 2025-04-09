@@ -73,6 +73,80 @@ namespace ft {
 
 	/* ^ throw if element comparisons or function throws */
 
+
+
+
+	/* Helper */
+
+	template <typename T>
+	void swap(T& a, T& b)
+	{
+		T tmp = a;
+		a = b;
+		b = tmp;
+	}
+
+	template <typename T>
+	const T& min(const T& a, const T& b)
+	{
+		return a < b ? a : b;
+	}
+
+	template <typename T>
+	const T& max(const T& a, const T& b)
+	{
+		return a > b ? a : b;
+	}
+
+	template <typename ForwardIterator, typename T>
+	void fill(ForwardIterator first, ForwardIterator last, const T& val)
+	{
+		while (first != last)
+		{
+			*first = val;
+			++first;
+		}
+	}
+
+	template <typename OutputIterator, typename Size, typename T>
+	void fill_n(OutputIterator first, Size n, const T& val)
+	{
+		while (n > 0)
+		{
+			*first = val;
+			++first;
+			--n;
+		}
+	}
+
+	template <typename InputIterator, typename OutputIterator>
+	OutputIterator copy(InputIterator first, InputIterator last,
+						OutputIterator d_first)
+	{
+		while (first != last)
+		{
+			*d_first = *first;
+			++first;
+			++d_first;
+		}
+
+		return result;
+	}
+
+	template <typename BidirIterator1, typename BidirIterator2>
+	BidirIterator2 copy_backward(BidirIterator1 first, BidirIterator1 last,
+								BidirIterator2 d_last)
+	{
+		while (last != first)
+		{
+			--last;
+			--d_last;
+			*d_last = *last;
+		}
+
+		return d_last;
+	}
+
 } // namespace ft
 
 /* different algorithm for lexicographical compare
