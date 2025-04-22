@@ -169,6 +169,7 @@ class vector
 			return const_reverse_iterator(begin());
 		}
 
+
 		size_type size() const
 		{
 			return static_cast<size_type>(end_ - begin_);
@@ -193,6 +194,7 @@ class vector
 			}
 		}
 
+
 		size_type capacity() const
 		{
 			return static_cast<size_type>(end_cap_ - begin_);
@@ -202,6 +204,7 @@ class vector
 		{
 			return begin_ == end_;
 		}
+
 
 		void reserve(size_type n)
 		{
@@ -215,6 +218,7 @@ class vector
 			// because the old vector goes out of scope
 			// the memory is deallocated (tmp == old vector)
 		}
+
 
 		// element access
 		reference at(size_type pos)
@@ -261,6 +265,7 @@ class vector
 			return begin_;
 		}
 
+
 		reference operator[](size_type pos)
 		{
 			return begin_[pos];
@@ -270,6 +275,7 @@ class vector
 		{
 			return begin_[pos];
 		}
+
 
 		// modifiers
 		void assign(size_type n, const value_type &val)
@@ -296,6 +302,7 @@ class vector
 			assign_range_(first, last, ft::iterator_category(first));
 		}
 
+
 		void push_back(const value_type &val)
 		{
 			if (end_ == end_cap_)
@@ -307,6 +314,7 @@ class vector
 		{
 			erase_at_end_(end_ - 1);
 		}
+
 
 		iterator insert(iterator position, const value_type &val)
 		{
@@ -335,6 +343,7 @@ class vector
 			insert_range_(pos, first, last, ft::iterator_category(first));
 		}
 
+
 		iterator erase(iterator position)
 		{
 			if (position + 1 != end())
@@ -356,6 +365,7 @@ class vector
 			return first;
 		}
 
+
 		void swap(vector &a)
 		{
 			ft::swap(alloc_, a.alloc_);
@@ -369,7 +379,6 @@ class vector
 			erase_at_end(begin_);
 		}
 
-		// allocator
 		allocator_type get_allocator() const
 		{
 			return alloc_;
