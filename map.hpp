@@ -27,7 +27,14 @@ class map
         typedef typename allocator_type::size_type          size_type;
         typedef typename allocator_type::difference_type    difference_type;
 
-        /* iterator typedefs to be added */
+    private:
+        typedef ft::rb_tree<value_type, value_compare, allocator_type>  tree_type;
+
+    public:
+        typedef typename tree_type::iterator                iterator;
+        typedef typename tree_type::const_iterator          const_iterator;
+        typedef typename tree_type::reverse_iterator        reverse_iterator;
+        typedef typename tree_type::const_reverse_iterator  const_reverse_iterator;
 
 
         /* typedefs are inherited by the binary_function struct */
@@ -52,47 +59,62 @@ class map
 
         
 
-        map();
-
-        explicit map(const Compare& comp, Allocator& alloc = Allocator());
+        explicit map(const Compare& comp, Allocator& alloc = Allocator())
+            : tree_(value_compare(comp), alloc)
+        {}
 
         template <typename InputIt>
         map(InputIt first, InputIt last, const Compare& comp = Compare(),
-            const Allocator& alloc = Allocator() );
+            const Allocator& alloc = Allocator());
+        {}
 
         map(const map& other);
+            : tree_(other.tree_)
+        {}
 
         ~map();
 
 
-        map& operator=(const map& other);
+        map& operator=(const map& other)
+        {
+            if (this != &other)
+                tree_ = other.tree_;
+            return *this;
+        }
 
 
-        allocator_type get_allocator() const;
+        iterator begin()
+        { return tree_.begin(); }
 
-        iterator begin();
+        const_iterator begin() const
+        { return tree_.begin(); }
 
-        const_iterator begin() const;
-
-        iterator end();
+        iterator end()
+        { return tree_.end(); }
         
-        const_iterator end() const;
+        const_iterator end() const
+        { return tree_.end(); }
 
-        reverse_iterator rbegin();
+        reverse_iterator rbegin()
+        { return reverse_iterator(end()); }
 
-        const_reverse_iterator rbegin() const;
+        const_reverse_iterator rbegin() const
+        { return const_reverse_iterator(end()); }
 
-        reverse_iterator rend();
+        reverse_iterator rend()
+        { return reverse_iterator(begin()); }
 
-        const_reverse_iterator rend();
+        const_reverse_iterator rend()
+        { return const_reverse_iterator(begin()); }
 
-        bool empty() const;
+        bool empty() const { return !tree_.size(); }
 
-        size_type size() const;
+        size_type size() const { return tree_.size(); }
 
-        size_type max_size() const;
+        size_type max_size() const { return tree_.max_size(); }
 
-        mapped_type& operator[](const key_type& key);
+        mapped_type& operator[](const key_type& key)
+        {}
 
         mapped_type& at(const key_type& key);
 
@@ -111,17 +133,32 @@ class map
 
         size_type erase(const Key& key);
 
-        void clear();
+        void clear()
+        {
+            tree_.clear();
+        }
 
-        key_compare key_comp() const;
+        key_compare key_comp() const
+        {
+            return key_compare();
+        }
 
-        value_compare value_comp() const;
+        value_compare value_comp() const
+        {
+            return tree_.value_comp();
+        }
 
-        iterator find(const Key& key);
+        iterator find(const Key& key)
+        {
+            return tree_.find(key);
+        }
 
-        const_iterator find(const Key& key) const;
+        const_iterator find(const Key& key) const
+        {
+            return tree_.find(key);
+        }
 
-        size_type count(const Key& key) const;
+        size_type count(const Key& key) const { return tree_.count(key); }
 
         iterator lower_bound(const Key& key);
 
@@ -135,7 +172,13 @@ class map
 
         ft::pair<const_iterator, const_iterator> equal_range(const Key& key);
 
-        void swap(map& other);
+        void swap(map& other)
+        {
+            tree_.swap(other.tree_);
+        }
+
+        allocator_type get_allocator() const
+        { return tree_.get_allocator(); }
 };
 
 template <typename Key, typename T, typename Compare, typename Alloc>
