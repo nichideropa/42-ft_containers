@@ -325,10 +325,204 @@ namespace ft {
             }
 
 
-
         private:
             const_node_pointer    current_;
     };
+
+
+    template <typename T, typename Compare, typename Allocator>
+    class rb_tree
+    {
+        public:
+            typedef T                                           value_type;
+            typedef Compare                                     value_compare;
+            typedef Allocator                                   allocator_type;
+
+            typedef typename Node<value_type>                   node_type;
+            typedef typename node_type::pointer                 node_pointer;
+            typedef typename node_type::const_pointer           const_node_pointer;
+            typedef typename allocator_type::template \
+            rebind<node_type>::other                            node_allocator_type;
+            typedef typename allocator_type::pointer            pointer;
+            typedef typename allocator_type::const_pointer      const_pointer;
+            typedef typename allocator_type::size_type          size_type;
+            typedef typename allocator_type::difference_type    difference_type;
+
+            typedef ft::tree_iterator                           iterator;
+            typedef ft::tree_const_iterator                     const_iterator;
+            typedef ft::reverse_iterator<iterator>              reverse_iterator;
+            typedef ft::reverse_iterator<const_iterator>        const_reverse_iterator;
+
+        protected:
+            value_compare           value_compare_;
+
+            /*
+                This is the allocator that allocates the type a user thinks
+                the underlying structure holds
+                e.G. std::map<std::string, int> map
+                    -> std::pair<std::string, int>
+            */
+            allocator_type          value_alloc_;
+
+            /* 
+                A data structure needs a way to hold the elements of itself and relate
+                them to one another. This is achieved by wrapping them with another
+                structure in this case the Node class.
+                This is the allocator that allocates a Node which  holds a
+                std::pair<std::string, int> as in the example above
+            */
+            node_allocator_type     node_alloc_;
+
+
+            /* it might be possible to implement the tree without a root/head node
+                but makes it easier. the leftmost node also helps with performance 
+                and is sugar for some operations */
+
+            /*
+                We need to keep track of how many Nodes a tree holds. In the original
+                implementation this was done by a Node wrapping class. */
+            size_type               size_;
+
+            /*
+                This is the placeholder for any Node that has no value
+            */
+            node_pointer            nil_;
+
+
+            node_pointer            leftmost_;
+
+        public:
+
+            /* implicit default constructor */
+
+            explicit rb_tree(const Compare& comp, const allocator_type& alloc)
+                : value_compare_(comp), value_alloc_(alloc), node_alloc(alloc), size_(0)
+            {}
+
+            rb_tree(const rb_tree& other)
+                : value_compare_(other.value_compare_), value_alloc_(other.value_alloc_),
+                node_alloc_(other.node_alloc_), size_(other.size_)
+            {}
+
+            ~rb_tree()
+            {}
+
+            rb_tree& operator=(const rb_tree& src)
+            {
+
+            }
+
+
+            iterator begin() { return iterator(leftmost_); }
+
+            const_iterator begin() { return const_iterator(leftmost_); }
+
+            iterator end() { return iterator(nil_); }
+
+            const_iterator end() { return const_iterator(nil_); }
+
+            value_compare& value_comp() const { return value_compare_; }
+
+            /* original implementation includes the reverse iterators
+            inside the rb_tree class and not only in the map */
+
+
+
+            const value_compare& value_comp() const { return value_compare_; }
+
+            size_type size() const { return size_; }
+
+            size_type max_size() const { return node_alloc_.max_size(); }
+
+            pair<iterator, bool> insert_unique(const value_type& val)
+            {}
+
+            iterator insert_unique(interator pos, const value_type& val)
+            {}
+
+            template <typename InputIt>
+            void insert_range_unique(InputIt first, InputIt last)
+            {
+                for (; first != last; ++first)
+                    insert_unique(*first);
+            }
+
+            pair<iterator, iterator> equal_range(const value_type& val)
+            {}
+
+            pair<const_iterator, const_iterator> equal_range(const value_type& val) const
+            {}
+
+            void erase(const_iterator position)
+            {}
+
+            void erase_range(const_iterator first, const_iterator last)
+            {}
+
+            size_type erase_unique(const value_type& val)
+            {}
+
+            void clear()
+            {}
+
+            /*
+                the original implementation uses
+                -> const key_type& k for these functions
+
+                can change up to use a template parameter
+                for the key_type instead of the value_type
+                -> template <typename Key
+                   iterator find(const Key& k)
+            */
+
+            iterator find(const value_type& val)
+            {}
+
+            const_iterator find(const value_type& val) const
+            {}
+
+            iterator lower_bound(const value_type& val)
+            {}
+
+            const_iterator lower_bound(const value_type& val) const
+            {}
+
+            iterator upper_bound(const value_type& val)
+            {}
+
+            const_iterator upper_bound(const value_type& val) const
+            {}
+
+            size_type count(const value_type& val) const
+            {
+                if (find(val) != end())
+                    return 1;
+                else
+                    return 0;
+            }
+
+            /* finished */
+            void swap(rb_tree& other)
+            {
+                ft::swap(value_compare_, other.value_compare);
+                ft::swap(value_alloc_, other.value_alloc_);
+                ft::swap(node_alloc_, other.node_alloc_);
+                ft::swap(size_, other.size_);
+                ft::swap(nil_, other.nil_);
+                ft::swap(leftmost_, other.leftmost_);
+            }
+
+            allocator_type get_allocator() const { return value_alloc_; }
+
+
+                
+                
+                
+        private:
+            tree_type               tree_;
+    
+    };
+
 
 } // namespace ft
 
