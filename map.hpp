@@ -83,29 +83,21 @@ class map
         }
 
 
-        iterator begin()
-        { return tree_.begin(); }
+        iterator begin() { return tree_.begin(); }
 
-        const_iterator begin() const
-        { return tree_.begin(); }
+        const_iterator begin() const { return tree_.begin(); }
 
-        iterator end()
-        { return tree_.end(); }
+        iterator end() { return tree_.end(); }
         
-        const_iterator end() const
-        { return tree_.end(); }
+        const_iterator end() const { return tree_.end(); }
 
-        reverse_iterator rbegin()
-        { return reverse_iterator(end()); }
+        reverse_iterator rbegin() { return reverse_iterator(end()); }
 
-        const_reverse_iterator rbegin() const
-        { return const_reverse_iterator(end()); }
+        const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
 
-        reverse_iterator rend()
-        { return reverse_iterator(begin()); }
+        reverse_iterator rend() { return reverse_iterator(begin()); }
 
-        const_reverse_iterator rend()
-        { return const_reverse_iterator(begin()); }
+        const_reverse_iterator rend() { return const_reverse_iterator(begin()); }
 
         bool empty() const { return !tree_.size(); }
 
