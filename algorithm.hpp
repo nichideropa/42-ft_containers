@@ -45,7 +45,7 @@ namespace ft {
 		{
 			if (*first1 < *first2)
 				return (true);
-			else if (*first2 < first1)
+			else if (*first2 < *first1)
 				return (false);
 			++first1;
 			++first2;
@@ -130,7 +130,7 @@ namespace ft {
 			++d_first;
 		}
 
-		return result;
+		return d_first;
 	}
 
 	template <typename BidirIterator1, typename BidirIterator2>
