@@ -41,22 +41,22 @@ class vector
 	public:
 		typedef T													value_type;
 		typedef Allocator											allocator_type;
+		typedef typename allocator_type::size_type					size_type;
+		typedef typename allocator_type::difference_type			difference_type;
 		typedef typename allocator_type::reference					reference;
 		typedef typename allocator_type::const_reference			const_reference;
 		typedef typename allocator_type::pointer					pointer;
 		typedef typename allocator_type::const_pointer				const_pointer;
-		typedef typename normal_iterator<pointer, vector>			iterator;
-		typedef typename normal_iterator<const_pointer, vector>		const_iterator;
-		typedef typename reverse_iterator<iterator>					reverse_iterator;
-		typedef typename reverse_iterator<const_iterator>			const_reverse_iterator;
-		typedef size_t												size_type;
-		typedef ptrdiff_t											difference_type;
+		typedef ft::normal_iterator<pointer, vector>					iterator;
+		typedef ft::normal_iterator<const_pointer, vector>				const_iterator;
+		typedef ft::reverse_iterator<iterator>							reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 
 	private:
 		allocator_type		alloc_;
-		pointer				*begin_;
-		pointer				*end_;
-		pointer				*end_cap_;
+		pointer				begin_;
+		pointer				end_;
+		pointer				end_cap_;
 
 	public:
 
@@ -82,7 +82,7 @@ class vector
 
 		template <typename InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type * = 0);
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0);
 			: alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
 		{
 			try {
@@ -178,7 +178,7 @@ class vector
 		size_type max_size() const
 		{
 			return ft::min<size_type>(alloc_.max_size(),
-					std::numeric_limit<difference_type>::max());
+				std::numeric_limits<difference_type>::max());
 		}
 
 		void resize(size_type n, value_type val=value_type())
@@ -224,8 +224,8 @@ class vector
 		reference at(size_type pos)
 		{
 			if (pos >= size())
-				throw std::out_of_range("ft::vector")
-			return (*this)[pos]
+				throw std::out_of_range("ft::vector");
+			return (*this)[pos];
 		}
 
 		const_reference at(size_type pos) const
@@ -323,7 +323,7 @@ class vector
 			return begin() + offset;
 		}
 
-		void insert(iterator position, size_type n, const value_type &val);
+		void insert(iterator position, size_type n, const value_type &val)
 		{
 			if (n != 0)
 			{
@@ -571,7 +571,7 @@ class vector
 	template <typename T, typename Alloc>
 	bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-		return !(lhs < rhs)
+		return !(lhs < rhs);
 	}
 
 	template <typename T, typename Alloc>
