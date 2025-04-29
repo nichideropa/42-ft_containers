@@ -18,8 +18,7 @@ LDFLAGS 		:= -pthread
 LDLIBS 			:= -lpthread
 
 VPATH       	:= ./ src/
-SRCS 			:= algorithms.cpp
-#				equal.cpp lexicographical_compare.cpp \
+SRCS 			:= algorithms.cpp utility.cpp stack.cpp
 
 ODIR 			:= obj
 OBJS 			:= $(SRCS:%.cpp=$(ODIR)/%.o)
