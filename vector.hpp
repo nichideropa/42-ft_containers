@@ -100,7 +100,7 @@ class vector
 				if (other.size() > 0)
 				{
 					vallocate_(other.size());
-					construct_at_end_(other.begin_, other.end_, ft::iterator_category(other.begin_))
+					construct_at_end_(other.begin_, other.end_, ft::iterator_category(other.begin_));
 				}
 			} catch (...) {
 				vdeallocate_();
@@ -159,12 +159,12 @@ class vector
 			return const_reverse_iterator(end());
 		}
 
-		reverse_iterator end()
+		reverse_iterator rend()
 		{
 			return _reverse_iterator(begin());
 		}
 
-		const_reverse_iterator end() const
+		const_reverse_iterator rend() const
 		{
 			return const_reverse_iterator(begin());
 		}
@@ -188,7 +188,7 @@ class vector
 			if (current_size < n) 
 			{ 
 				reserve(recommend_size(n));
-				construct_from_end(n - current_size, val);
+				construct_at_end_(n - current_size, val);
 			} else if (current_size > n) {
 				erase_at_end(begin_ + n);
 			}
@@ -210,8 +210,8 @@ class vector
 		{
 			if (n > capacity()) {
 				vector tmp(alloc_);
-				tmp.allocate_(n);
-				construct_from_end(begin_, end_, ft::iterator_category(begin_))
+				tmp.vallocate_(n);
+				construct_at_end_(begin_, end_, ft::iterator_category(begin_));
 				swap(tmp);	
 			}
 
@@ -231,8 +231,8 @@ class vector
 		const_reference at(size_type pos) const
 		{
 			if (pos >= size())
-				throw std::out_of_range("ft::vector")
-			return (*this)[pos]
+				throw std::out_of_range("ft::vector");
+			return (*this)[pos];
 		}
 
 		reference front()
@@ -319,7 +319,7 @@ class vector
 		iterator insert(iterator position, const value_type &val)
 		{
 			difference_type offset = position - begin();
-			insert(postion, 1, val);
+			insert(position, 1, val);
 			return begin() + offset;
 		}
 
@@ -347,7 +347,7 @@ class vector
 		iterator erase(iterator position)
 		{
 			if (position + 1 != end())
-				ft::copy(position + 1; end(), position);
+				ft::copy(position + 1, end(), position);
 			pop_back();
 
 			return position;
@@ -358,7 +358,7 @@ class vector
 			size_type n = std::distance(first, last);
 			if (n > 0)
 			{
-				ft::copy(begin_ + (last - begin()) + 1, end_, begin_ + (first - begin()))
+				ft::copy(begin_ + (last - begin()) + 1, end_, begin_ + (first - begin()));
 				erase_at_end(end_ - n);
 			}
 
@@ -376,7 +376,7 @@ class vector
 
 		void clear()
 		{
-			erase_at_end(begin_);
+			erase_at_end_(begin_);
 		}
 
 		allocator_type get_allocator() const
@@ -386,11 +386,6 @@ class vector
 
 
 	private:
-		allocator_type		alloc_;
-		pointer				*begin_;
-		pointer				*end_;
-		pointer				*end_cap_;
-		
 
 		inline void construct_(pointer p, const_reference val)
 		{
@@ -410,7 +405,7 @@ class vector
 				throw std::length_error("ft::vector");
 
 			begin_ = end_ = alloc_.allocate(n);
-			end_cap_ = begin + n;
+			end_cap_ = begin_ + n;
 		}
 
 
@@ -419,7 +414,7 @@ class vector
 		inline void vdeallocate_()
 		{
 			if (begin_ == NULL)
-				return NULL;
+				return ;
 
 			clear();
 			alloc_.deallocate(begin_, capacity());
@@ -429,7 +424,7 @@ class vector
 		inline void construct_at_end_(size_type n, const_reference val = value_type())
 		{
 			for (size_type i = 0; i < n; ++i, ++end_)
-				construct_(end_, val)
+				construct_(end_, val);
 		}
 
 		template <typename ForwardIterator>
@@ -519,17 +514,17 @@ class vector
 			memory relocation better */
 		size_type recommend_size(size_type new_size)
 		{
-			const size_type max_size = max_size();
+			const size_type size_max = max_size();
 
-			if (new_size > max_size)
+			if (new_size > size_max)
 				throw std::length_error("ft::vector");
 
 			const size_type cap = capacity();
 			if (new_size < cap)
 				return cap;
 			
-			if (cap >= max_size / 2)
-				return max_size;
+			if (cap >= size_max / 2)
+				return size_max;
 			
 			return ft::max(cap * 2, new_size);
 		}
