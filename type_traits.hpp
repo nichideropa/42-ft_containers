@@ -143,27 +143,43 @@ namespace ft {
 	/* long long, char16_t and char32_t belong to C++11 */
 
 
-	/* might be of interest in conversions of iterator */
-	template <typename, typename>
-	struct are_same
-	{
-		enum {value = 0};
-		typedef false_type type;
-	};
 
-	template <typename T>
-	struct are_same<T, T>
-	{
-		enum {value = 1};
-		typedef true_type type;
-	};
 
-	// template <typename, typename>
-	// struct are_same : public false_type {};
+	/*
+		might be of interest in conversions of iterator
+	*/
+	
+		// template <typename, typename>
+	// struct are_same
+	// {
+	// 	enum {value = 0};
+	// 	typedef false_type type;
+	// };
 
 	// template <typename T>
-	// struct are_same<T, T> : public true_type {}
+	// struct are_same<T, T>
+	// {
+	// 	enum {value = 1};
+	// 	typedef true_type type;
+	// };
 
+
+	/* compact definition */
+	template <typename, typename>
+	struct are_same : public false_type {};
+
+	template <typename T>
+	struct are_same<T, T> : public true_type {};
+
+
+
+
+
+	/*
+		This approach was used by the llvm implementation as well as gnu
+		later on with newer versions. It works by removing the qualifiers
+		before checking the type.
+	*/
 
 	/* different approach (presently) to defining the is_integral specification */
 	// template <typename T>

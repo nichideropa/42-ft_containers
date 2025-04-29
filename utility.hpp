@@ -32,8 +32,8 @@ namespace ft {
 
 		/* copy constructor
 			is defaulted (until C++11 it's implicitly declared) */
-		// pair(const pair &p) : first(p.first), second(p.second)
-		// {}
+		pair(const pair &p) : first(p.first), second(p.second)
+		{}
 
 		/* ill formed if either attributes const qualified , reference
 			with inaccessible copy assignment operator */
