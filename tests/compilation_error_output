@@ -1,0 +1,227 @@
+In file included from ../stack.hpp:7,
+                 from stack.cpp:4:
+../vector.hpp:86:27: error: invalid use of non-static data member ‘ft::vector<T, Allocator>::alloc_’
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                           ^~~~~~
+../vector.hpp:56:41: note: declared here
+   56 |                 allocator_type          alloc_;
+      |                                         ^~~~~~
+../vector.hpp:86:34: error: ‘alloc’ was not declared in this scope; did you mean ‘alloc_’?
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                  ^~~~~
+      |                                  alloc_
+../vector.hpp:86:39: error: ISO C++ forbids declaration of ‘type name’ with no type [-fpermissive]
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                       ^
+In file included from /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:23,
+                 from /usr/include/signal.h:313,
+                 from /usr/include/x86_64-linux-gnu/sys/wait.h:36,
+                 from googletest/googletest/include/gtest/internal/gtest-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-printers.h:122,
+                 from googletest/googletest/include/gtest/gtest-matchers.h:49,
+                 from googletest/googletest/include/gtest/internal/gtest-death-test-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-death-test.h:43,
+                 from googletest/googletest/include/gtest/gtest.h:64,
+                 from stack.cpp:1:
+../vector.hpp:86:49: error: expected identifier before ‘__null’
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                 ^~~~
+../vector.hpp:86:49: error: expected ‘,’ or ‘...’ before ‘__null’
+In file included from ../stack.hpp:7,
+                 from stack.cpp:4:
+../vector.hpp:86:42: error: ISO C++ forbids declaration of ‘begin_’ with no type [-fpermissive]
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                          ^~~~~~
+../vector.hpp:86:54: error: ‘int ft::vector<T, Allocator>::begin_(int)’ conflicts with a previous declaration
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                      ^
+../vector.hpp:57:49: note: previous declaration ‘ft::vector<T, Allocator>::pointer ft::vector<T, Allocator>::begin_’
+   57 |                 pointer                         begin_;
+      |                                                 ^~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:23,
+                 from /usr/include/signal.h:313,
+                 from /usr/include/x86_64-linux-gnu/sys/wait.h:36,
+                 from googletest/googletest/include/gtest/internal/gtest-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-printers.h:122,
+                 from googletest/googletest/include/gtest/gtest-matchers.h:49,
+                 from googletest/googletest/include/gtest/internal/gtest-death-test-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-death-test.h:43,
+                 from googletest/googletest/include/gtest/gtest.h:64,
+                 from stack.cpp:1:
+../vector.hpp:86:61: error: expected identifier before ‘__null’
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                             ^~~~
+../vector.hpp:86:61: error: expected ‘,’ or ‘...’ before ‘__null’
+In file included from ../stack.hpp:7,
+                 from stack.cpp:4:
+../vector.hpp:86:56: error: ISO C++ forbids declaration of ‘end_’ with no type [-fpermissive]
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                        ^~~~
+../vector.hpp:86:66: error: ‘int ft::vector<T, Allocator>::end_(int)’ conflicts with a previous declaration
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                                  ^
+../vector.hpp:58:49: note: previous declaration ‘ft::vector<T, Allocator>::pointer ft::vector<T, Allocator>::end_’
+   58 |                 pointer                         end_;
+      |                                                 ^~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:23,
+                 from /usr/include/signal.h:313,
+                 from /usr/include/x86_64-linux-gnu/sys/wait.h:36,
+                 from googletest/googletest/include/gtest/internal/gtest-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-printers.h:122,
+                 from googletest/googletest/include/gtest/gtest-matchers.h:49,
+                 from googletest/googletest/include/gtest/internal/gtest-death-test-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-death-test.h:43,
+                 from googletest/googletest/include/gtest/gtest.h:64,
+                 from stack.cpp:1:
+../vector.hpp:86:77: error: expected identifier before ‘__null’
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                                             ^~~~
+../vector.hpp:86:77: error: expected ‘,’ or ‘...’ before ‘__null’
+In file included from ../stack.hpp:7,
+                 from stack.cpp:4:
+../vector.hpp:86:68: error: ISO C++ forbids declaration of ‘end_cap_’ with no type [-fpermissive]
+   86 |                         : alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
+      |                                                                    ^~~~~~~~
+../vector.hpp:94:17: error: ‘int ft::vector<T, Allocator>::end_cap_(int)’ conflicts with a previous declaration
+   94 |                 }
+      |                 ^
+../vector.hpp:59:49: note: previous declaration ‘ft::vector<T, Allocator>::pointer ft::vector<T, Allocator>::end_cap_’
+   59 |                 pointer                         end_cap_;
+      |                                                 ^~~~~~~~
+../vector.hpp:162:34: error: ‘ft::vector<T, Allocator>::reverse_iterator ft::vector<T, Allocator>::end()’ cannot be overloaded with ‘ft::vector<T, Allocator>::iterator ft::vector<T, Allocator>::end()’
+  162 |                 reverse_iterator end()
+      |                                  ^~~
+../vector.hpp:142:26: note: previous declaration ‘ft::vector<T, Allocator>::iterator ft::vector<T, Allocator>::end()’
+  142 |                 iterator end()
+      |                          ^~~
+../vector.hpp:167:40: error: ‘ft::vector<T, Allocator>::const_reverse_iterator ft::vector<T, Allocator>::end() const’ cannot be overloaded with ‘ft::vector<T, Allocator>::const_iterator ft::vector<T, Allocator>::end() const’
+  167 |                 const_reverse_iterator end() const
+      |                                        ^~~
+../vector.hpp:147:32: note: previous declaration ‘ft::vector<T, Allocator>::const_iterator ft::vector<T, Allocator>::end() const’
+  147 |                 const_iterator end() const
+      |                                ^~~
+../vector.hpp:389:41: error: redeclaration of ‘ft::vector<T, Allocator>::allocator_type ft::vector<T, Allocator>::alloc_’
+  389 |                 allocator_type          alloc_;
+      |                                         ^~~~~~
+../vector.hpp:56:41: note: previous declaration ‘ft::vector<T, Allocator>::allocator_type ft::vector<T, Allocator>::alloc_’
+   56 |                 allocator_type          alloc_;
+      |                                         ^~~~~~
+../vector.hpp:390:50: error: redeclaration of ‘ft::vector<T, Allocator>::pointer* ft::vector<T, Allocator>::begin_’
+  390 |                 pointer                         *begin_;
+      |                                                  ^~~~~~
+../vector.hpp:57:49: note: previous declaration ‘ft::vector<T, Allocator>::pointer ft::vector<T, Allocator>::begin_’
+   57 |                 pointer                         begin_;
+      |                                                 ^~~~~~
+../vector.hpp:391:50: error: redeclaration of ‘ft::vector<T, Allocator>::pointer* ft::vector<T, Allocator>::end_’
+  391 |                 pointer                         *end_;
+      |                                                  ^~~~
+../vector.hpp:58:49: note: previous declaration ‘ft::vector<T, Allocator>::pointer ft::vector<T, Allocator>::end_’
+   58 |                 pointer                         end_;
+      |                                                 ^~~~
+../vector.hpp:392:50: error: redeclaration of ‘ft::vector<T, Allocator>::pointer* ft::vector<T, Allocator>::end_cap_’
+  392 |                 pointer                         *end_cap_;
+      |                                                  ^~~~~~~~
+../vector.hpp:59:49: note: previous declaration ‘ft::vector<T, Allocator>::pointer ft::vector<T, Allocator>::end_cap_’
+   59 |                 pointer                         end_cap_;
+      |                                                 ^~~~~~~~
+../vector.hpp: In member function ‘int ft::vector<T, Allocator>::end_cap_(int)’:
+../vector.hpp:89:40: error: ‘first’ was not declared in this scope
+   89 |                                 assign(first, last);
+      |                                        ^~~~~
+../vector.hpp:89:47: error: ‘last’ was not declared in this scope; did you mean ‘at’?
+   89 |                                 assign(first, last);
+      |                                               ^~~~
+      |                                               at
+../vector.hpp: In copy constructor ‘ft::vector<T, Allocator>::vector(const ft::vector<T, Allocator>&)’:
+../vector.hpp:104:33: error: expected ‘;’ before ‘}’ token
+  104 |                                 }
+      |                                 ^
+../vector.hpp: In member function ‘void ft::vector<T, Allocator>::reserve(ft::vector<T, Allocator>::size_type)’:
+../vector.hpp:215:33: error: expected ‘;’ before ‘swap’
+  215 |                                 swap(tmp);
+      |                                 ^~~~
+../vector.hpp: In member function ‘ft::vector<T, Allocator>::const_reference ft::vector<T, Allocator>::at(ft::vector<T, Allocator>::size_type) const’:
+../vector.hpp:235:25: error: expected ‘;’ before ‘return’
+  235 |                         return (*this)[pos]
+      |                         ^~~~~~
+../vector.hpp: In member function ‘ft::vector<T, Allocator>::iterator ft::vector<T, Allocator>::insert(ft::vector<T, Allocator>::iterator, const value_type&)’:
+../vector.hpp:322:32: error: ‘postion’ was not declared in this scope; did you mean ‘position’?
+  322 |                         insert(postion, 1, val);
+      |                                ^~~~~~~
+      |                                position
+../vector.hpp: In member function ‘ft::vector<T, Allocator>::iterator ft::vector<T, Allocator>::erase(ft::vector<T, Allocator>::iterator)’:
+../vector.hpp:350:54: error: expected ‘)’ before ‘;’ token
+  350 |                                 ft::copy(position + 1; end(), position);
+      |                                                      ^
+../vector.hpp:350:41: note: to match this ‘(’
+  350 |                                 ft::copy(position + 1; end(), position);
+      |                                         ^
+../vector.hpp:349:25: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+  349 |                         if (position + 1 != end())
+      |                         ^~
+../vector.hpp:350:56: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  350 |                                 ft::copy(position + 1; end(), position);
+      |                                                        ^~~
+../vector.hpp:350:71: error: expected ‘;’ before ‘)’ token
+  350 |                                 ft::copy(position + 1; end(), position);
+      |                                                                       ^
+../vector.hpp: In member function ‘ft::vector<T, Allocator>::iterator ft::vector<T, Allocator>::erase(ft::vector<T, Allocator>::iterator, ft::vector<T, Allocator>::iterator)’:
+../vector.hpp:362:33: error: expected ‘;’ before ‘erase_at_end’
+  362 |                                 erase_at_end(end_ - n);
+      |                                 ^~~~~~~~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:23,
+                 from /usr/include/signal.h:313,
+                 from /usr/include/x86_64-linux-gnu/sys/wait.h:36,
+                 from googletest/googletest/include/gtest/internal/gtest-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-printers.h:122,
+                 from googletest/googletest/include/gtest/gtest-matchers.h:49,
+                 from googletest/googletest/include/gtest/internal/gtest-death-test-internal.h:47,
+                 from googletest/googletest/include/gtest/gtest-death-test.h:43,
+                 from googletest/googletest/include/gtest/gtest.h:64,
+                 from stack.cpp:1:
+../vector.hpp: In member function ‘void ft::vector<T, Allocator>::vdeallocate_()’:
+../vector.hpp:422:40: error: return-statement with a value, in function returning ‘void’ [-fpermissive]
+  422 |                                 return NULL;
+      |                                        ^~~~
+In file included from ../stack.hpp:7,
+                 from stack.cpp:4:
+../vector.hpp: In member function ‘void ft::vector<T, Allocator>::construct_at_end_(ft::vector<T, Allocator>::size_type, ft::vector<T, Allocator>::const_reference)’:
+../vector.hpp:433:17: error: expected ‘;’ before ‘}’ token
+  433 |                 }
+      |                 ^
+../vector.hpp: In instantiation of ‘void ft::vector<T, Allocator>::clear() [with T = int; Allocator = std::allocator<int>]’:
+../vector.hpp:424:4:   required from ‘void ft::vector<T, Allocator>::vdeallocate_() [with T = int; Allocator = std::allocator<int>]’
+../vector.hpp:114:4:   required from ‘ft::vector<T, Allocator>::~vector() [with T = int; Allocator = std::allocator<int>]’
+../stack.hpp:29:42:   required from here
+../vector.hpp:379:37: error: ‘erase_at_end’ was not declared in this scope; did you mean ‘erase_at_end_’?
+  379 |                         erase_at_end(begin_);
+      |                         ~~~~~~~~~~~~^~~~~~~~
+      |                         erase_at_end_
+../vector.hpp: In instantiation of ‘void ft::vector<T, Allocator>::vallocate_(ft::vector<T, Allocator>::size_type) [with T = int; Allocator = std::allocator<int>; ft::vector<T, Allocator>::size_type = long unsigned int]’:
+../vector.hpp:102:6:   required from ‘ft::vector<T, Allocator>::vector(const ft::vector<T, Allocator>&) [with T = int; Allocator = std::allocator<int>]’
+../stack.hpp:29:58:   required from ‘ft::stack<T, _Container>::stack(const _Container&) [with T = int; _Container = ft::vector<int, std::allocator<int> >]’
+stack.cpp:8:20:   required from here
+../vector.hpp:413:42: error: invalid operands of types ‘<unresolved overloaded function type>’ and ‘ft::vector<int, std::allocator<int> >::size_type’ {aka ‘long unsigned int’} to binary ‘operator+’
+  413 |                         end_cap_ = begin + n;
+      |                                    ~~~~~~^~~
+../vector.hpp: In instantiation of ‘void ft::vector<T, Allocator>::reserve(ft::vector<T, Allocator>::size_type) [with T = int; Allocator = std::allocator<int>; ft::vector<T, Allocator>::size_type = long unsigned int]’:
+../vector.hpp:309:5:   required from ‘void ft::vector<T, Allocator>::push_back(const value_type&) [with T = int; Allocator = std::allocator<int>; ft::vector<T, Allocator>::value_type = int]’
+../stack.hpp:46:17:   required from ‘void ft::stack<T, _Container>::push(const value_type&) [with T = int; _Container = ft::vector<int, std::allocator<int> >; ft::stack<T, _Container>::value_type = int]’
+stack.cpp:15:16:   required from here
+../vector.hpp:213:37: error: ‘class ft::vector<int, std::allocator<int> >’ has no member named ‘allocate_’; did you mean ‘vallocate_’?
+  213 |                                 tmp.allocate_(n);
+      |                                 ~~~~^~~~~~~~~
+      |                                 vallocate_
+../vector.hpp:214:51: error: ‘construct_from_end’ was not declared in this scope; did you mean ‘construct_at_end_’?
+  214 |                                 construct_from_end(begin_, end_, ft::iterator_category(begin_))
+      |                                 ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                 construct_at_end_
+../vector.hpp: In instantiation of ‘ft::vector<T, Allocator>::size_type ft::vector<T, Allocator>::recommend_size(ft::vector<T, Allocator>::size_type) [with T = int; Allocator = std::allocator<int>; ft::vector<T, Allocator>::size_type = long unsigned int]’:
+../vector.hpp:309:13:   required from ‘void ft::vector<T, Allocator>::push_back(const value_type&) [with T = int; Allocator = std::allocator<int>; ft::vector<T, Allocator>::value_type = int]’
+../stack.hpp:46:17:   required from ‘void ft::stack<T, _Container>::push(const value_type&) [with T = int; _Container = ft::vector<int, std::allocator<int> >; ft::stack<T, _Container>::value_type = int]’
+stack.cpp:15:16:   required from here
+../vector.hpp:522:60: error: ‘max_size’ cannot be used as a function
+  522 |                         const size_type max_size = max_size();
+      |                                                    ~~~~~~~~^~
+cc1plus: all warnings being treated as errors
+make: *** [Makefile:71: obj/stack.o] Error 1

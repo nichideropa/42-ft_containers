@@ -82,7 +82,7 @@ class vector
 
 		template <typename InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0);
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 			: alloc_(alloc), begin_(NULL), end_(NULL), end_cap_(NULL)
 		{
 			try {
