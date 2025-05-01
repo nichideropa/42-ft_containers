@@ -17,7 +17,7 @@
     might be worth being tested against the STL.
 */
 
-TEST(equal, equal)
+TEST(algorithms, equal)
 {
     std::vector<int> v1 = {1, 2, 3, 4};
     std::vector<int> v2 = {1, 2, 3, 4};
@@ -59,7 +59,7 @@ TEST(equal, equal)
 
 
 /* compares if the first object is lexicographically less than the second */
-TEST(lexicographical_compare, lexicographical_compare)
+TEST(algorithms, lexicographical_compare)
 {
     std::vector<int> v1 = {1, 2, 3};
     std::vector<int> v2 = {1, 2, 4};

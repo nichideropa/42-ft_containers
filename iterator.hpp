@@ -464,7 +464,7 @@ namespace ft {
 				return (current_[n]);
 			}
 
-			iterator_type &base() const
+			iterator_type base() const
 			{
 				return (current_);
 			}
