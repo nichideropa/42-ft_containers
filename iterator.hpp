@@ -532,21 +532,21 @@ namespace ft {
 	bool	operator>(const normal_iterator<Iterator1, Container> &lhs,
 						const normal_iterator<Iterator2, Container> &rhs)
 	{
-		return (rhs.base() > lhs.base());
+		return (lhs.base() > rhs.base());
 	}
 
 	template <typename Iterator, typename Container>
 	bool	operator<=(const normal_iterator<Iterator, Container> &lhs,
 						const normal_iterator<Iterator, Container> &rhs)
 	{
-		return (rhs.base() <= lhs.base());
+		return (lhs.base() <= rhs.base());
 	}
 
 	template <typename Iterator1, typename Iterator2, typename Container>
 	bool	operator<=(const normal_iterator<Iterator1, Container> &lhs,
 						const normal_iterator<Iterator2, Container> &rhs)
 	{
-		return (rhs.base() <= lhs.base());
+		return (lhs.base() <= rhs.base());
 	}
 
 	template <typename Iterator, typename Container>
@@ -581,7 +581,7 @@ namespace ft {
 	operator-(const normal_iterator<Iterator, Container> &lhs,
 				const normal_iterator<Iterator, Container> &rhs)
 	{
-		return (rhs.base() - lhs.base());
+		return (lhs.base() - rhs.base());
 	}
 
 	template <typename Iterator1, typename Iterator2, typename Container>
@@ -589,7 +589,7 @@ namespace ft {
 	operator-(const normal_iterator<Iterator1, Container> &lhs,
 				const normal_iterator<Iterator2, Container> &rhs)
 	{
-		return (rhs.base() - lhs.base());
+		return (lhs.base() - rhs.base());
 	}
 
 
@@ -597,21 +597,21 @@ namespace ft {
 	/* distance functions */
 
 	template <typename Iter>
-	typename iterator_traits<Iter>::difference_type
+	typename ft::iterator_traits<Iter>::difference_type
 	distance(Iter first, Iter last)
 	{
 		return (distance(first, last, iterator_category(first)));
 	}
 
 	template <typename RandomAccessIterator>
-	typename iterator_traits<RandomAccessIterator>::difference_type
+	typename ft::iterator_traits<RandomAccessIterator>::difference_type
 	distance(RandomAccessIterator first, RandomAccessIterator last, random_access_iterator_tag)
 	{
 		return (last - first);
 	}
 
 	template <typename InputIterator>
-	typename iterator_traits<InputIterator>::difference_type
+	typename ft::iterator_traits<InputIterator>::difference_type
 	distance(InputIterator first, InputIterator last, input_iterator_tag)
 	{
 		typename iterator_traits<InputIterator>::difference_type	dis(0);
