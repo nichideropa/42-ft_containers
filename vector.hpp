@@ -161,7 +161,7 @@ class vector
 
 		reverse_iterator rend()
 		{
-			return _reverse_iterator(begin());
+			return reverse_iterator(begin());
 		}
 
 		const_reverse_iterator rend() const
@@ -190,7 +190,7 @@ class vector
 				reserve(recommend_size(n));
 				construct_at_end_(n - current_size, val);
 			} else if (current_size > n) {
-				erase_at_end(begin_ + n);
+				erase_at_end_(begin_ + n);
 			}
 		}
 
@@ -211,7 +211,7 @@ class vector
 			if (n > capacity()) {
 				vector tmp(alloc_);
 				tmp.vallocate_(n);
-				construct_at_end_(begin_, end_, ft::iterator_category(begin_));
+				tmp.construct_at_end_(begin_, end_, ft::iterator_category(begin_));
 				swap(tmp);	
 			}
 
@@ -285,13 +285,13 @@ class vector
 				vector tmp(n, val);
 				swap(tmp);
 			} else {
-				const size_type size = size();
+				const size_type _size = size();
 
-				ft::fill_n(begin_, ft::min(size, n), val);
-				if (n < size)
+				ft::fill_n(begin_, ft::min(_size, n), val);
+				if (n < _size)
 					erase_at_end_(begin_ + n);
 				else
-					construct_at_end_(n - size, val);
+					construct_at_end_(n - _size, val);
 			}
 		}
 
@@ -331,8 +331,8 @@ class vector
 				const size_type old_size = size();
 
 				resize(old_size + n);
-				ft::copy_backward(begin_ + offset, begin_ + old_size, begin + size());
-				ft::fill_n(begin + offset, n, val);
+				ft::copy_backward(begin_ + offset, begin_ + old_size, begin_ + size());
+				ft::fill_n(begin_ + offset, n, val);
 			}
 		}
 
@@ -355,11 +355,11 @@ class vector
 
 		iterator erase(iterator first, iterator last)
 		{
-			size_type n = std::distance(first, last);
+			size_type n = ft::distance(first, last);
 			if (n > 0)
 			{
 				ft::copy(begin_ + (last - begin()) + 1, end_, begin_ + (first - begin()));
-				erase_at_end(end_ - n);
+				erase_at_end_(end_ - n);
 			}
 
 			return first;
