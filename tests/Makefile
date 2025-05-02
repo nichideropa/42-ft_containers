@@ -18,7 +18,8 @@ LDFLAGS 		:= -pthread
 LDLIBS 			:= -lpthread
 
 VPATH       	:= ./ src/
-SRCS 			:= algorithms.cpp utility.cpp stack.cpp
+SRCS 			:= algorithms.cpp utility.cpp stack.cpp \
+				  vector.cpp
 
 ODIR 			:= obj
 OBJS 			:= $(SRCS:%.cpp=$(ODIR)/%.o)
