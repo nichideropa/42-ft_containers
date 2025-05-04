@@ -50,13 +50,15 @@ TEST(stack, methods)
         s1.push(i);
 
     EXPECT_FALSE(s1.empty());
-    EXPECT_EQ(s1.size(), 100);
+    EXPECT_EQ(s1.size(), VOLUME);
 
-    s1.top();
+    const int r = s1.top();
     EXPECT_EQ(s1.size(), VOLUME);
 
     for (int i = 0; i < VOLUME / 2; ++i)
         s1.pop();
+
+    EXPECT_NE(r, s1.top());
 
     EXPECT_NE(s1.size(), VOLUME);
     EXPECT_NE(s1, s2);
@@ -64,6 +66,5 @@ TEST(stack, methods)
     // we are popping more than there are in the container
     for (int i = 0; i < VOLUME; ++i)
         s1.pop();
-
 }
 
