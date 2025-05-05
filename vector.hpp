@@ -437,7 +437,13 @@ class vector
 
 		inline void erase_at_end_(pointer pos)
 		{
-			while (end_ != pos)
+			// the actual implementation I saw was with !=
+			// but popping more elements than there were in
+			// caused an infinite loop in the destructor
+			// because it called the clear function with 
+			// the beginning and the end was already smaller than
+			// the beginningls
+			while (end_ > pos)
 				destroy_(--end_);
 		}
 

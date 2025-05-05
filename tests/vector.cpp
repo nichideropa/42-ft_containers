@@ -269,7 +269,7 @@ TEST(vector, push_and_pop)
     EXPECT_TRUE(v1.empty());
 
     // this causes an infinite loop but shouldn't
-    // v1.pop_back();
+    v1.pop_back();
 }
 
 TEST(vector, clear)
